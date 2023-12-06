@@ -60,7 +60,7 @@ namespace WinFormsApp4
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             var shop = shops.Where(x => x.Id == ((Shop)ShopsListBox.SelectedItem).Id).FirstOrDefault();
-            if(shop != null) 
+            if (shop != null)
             {
                 ProductsListBox.DataSource = shop.Products;
                 ProductsListBox.DisplayMember = "Name";

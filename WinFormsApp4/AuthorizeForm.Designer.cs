@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp4
 {
-    partial class Form1
+    partial class AuthorizeForm
     {
         /// <summary>
         ///  Required designer variable.

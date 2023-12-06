@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace WinFormsApp4
 {
-    public class User
+    public interface IHelloService
     {
-        public int Id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        string Hello();
     }
 }

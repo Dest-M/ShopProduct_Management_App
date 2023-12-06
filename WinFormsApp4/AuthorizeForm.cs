@@ -1,10 +1,16 @@
 namespace WinFormsApp4
 {
-    public partial class Form1 : Form
+    public partial class AuthorizeForm : Form
     {
-        public Form1()
+        private readonly IUserRepository _userRepository;
+        private readonly MainWindow _mainWindow;
+        public AuthorizeForm( 
+            IUserRepository userRepository,
+            MainWindow mainWindow)
         {
             InitializeComponent();
+            _userRepository = userRepository;
+            _mainWindow = mainWindow;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -16,16 +22,19 @@ namespace WinFormsApp4
         {
             var login = LoginTextBox.Text;
             var password = PasswordTextBox.Text;
+            var users = _userRepository.GetUsers();
+            var user = users.FirstOrDefault(u => u.Login.Trim() == login);
 
-            if(UserRepository.Users.Where(u => u.Login == login && u.Password == password).FirstOrDefault() == null )
+         
+
+            if(user == null)
             {
                 MessageBox.Show("Вы ввели некоректные данные", "Не найден пользователь", MessageBoxButtons.OK);
                 return;
             }
             MessageBox.Show("Вы ввели коректные данные", "Найден пользователь", MessageBoxButtons.OK);
 
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            _mainWindow.Show();
             this.Hide(); 
         }
 
