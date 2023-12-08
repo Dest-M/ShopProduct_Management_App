@@ -1,3 +1,5 @@
+using WinFormsApp4.Repositories;
+
 namespace WinFormsApp4
 {
     public partial class AuthorizeForm : Form

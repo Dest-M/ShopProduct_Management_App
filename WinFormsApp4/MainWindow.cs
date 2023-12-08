@@ -7,46 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApp4.Models;
+using WinFormsApp4.Repositories;
 
 namespace WinFormsApp4
 {
     public partial class MainWindow : Form
     {
-        static List<Product> products1 = new List<Product>()
-        {
-            new Product() {Id = 1, Name = "Apple"},
-            new Product() {Id = 2, Name = "Tomato"},
-            new Product() {Id = 3, Name = "Juice"}
-        };
+        private readonly IShopRepository _shopRepository;
+        private List<Shop> shops;
 
-        static List<Product> products2 = new List<Product>()
-        {
-            new Product() {Id = 4, Name = "Potato"},
-            new Product() {Id = 5, Name = "Orange"},
-            new Product() {Id = 6, Name = "Meat"}
-        };
-
-        List<Shop> shops = new List<Shop>()
-        {
-            new Shop()
-            {
-                Id = 1,
-                Name="Diksi",
-                Products= products1,
-            },
-            new Shop()
-            {
-                Id = 2,
-                Name="Paterka",
-                Products= products2,
-            }
-        };
-
-
-
-        public MainWindow()
+        public MainWindow(IShopRepository shopRepository)
         {
             InitializeComponent();
+            _shopRepository = shopRepository;
+            shops = _shopRepository.GetShops();
             ShopsListBox.DataSource = shops;
             ShopsListBox.DisplayMember = "Name";
             ShopsListBox.ValueMember = "Id";
@@ -59,7 +34,7 @@ namespace WinFormsApp4
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var shop = shops.Where(x => x.Id == ((Shop)ShopsListBox.SelectedItem).Id).FirstOrDefault();
+            var shop = shops.Where(x => x.ShopId == ((Shop)ShopsListBox.SelectedItem).ShopId).FirstOrDefault();
             if (shop != null)
             {
                 ProductsListBox.DataSource = shop.Products;
@@ -73,20 +48,5 @@ namespace WinFormsApp4
         {
 
         }
-    }
-
-    public class Shop
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        public List<Product> Products { get; set; }
-    }
-
-    public class Product
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
     }
 }

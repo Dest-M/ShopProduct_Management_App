@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using WinFormsApp4.Models;
 
-namespace WinFormsApp4
+namespace WinFormsApp4.Repositories
 {
     public class UserRepository : IUserRepository
     {

@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WinFormsApp4.Repositories;
 
 namespace WinFormsApp4
 {
@@ -23,11 +24,11 @@ namespace WinFormsApp4
         public static IServiceProvider ServiceProvider { get; private set; }
         static IHostBuilder CreateHostBuilder()
         {
-            string connectionString = "Data Source=sqlsrv;Initial Catalog=asdasd;User ID={your value};Password={your password};Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            string connectionString = "Data Source=sqlsrv;Initial Catalog=asdasd;User ID=admin;Password=123;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) => {
-                    services.AddTransient<IHelloService, HelloService>();
                     services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
+                    services.AddTransient<IShopRepository, ShopRepository>(provider => new ShopRepository(connectionString));
                     services.AddTransient<InputWindow>();
                     services.AddTransient<RegistrationForm>();
                     services.AddTransient<AuthorizeForm>();
