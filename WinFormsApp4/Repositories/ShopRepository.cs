@@ -29,12 +29,20 @@ namespace WinFormsApp4.Repositories
                             INNER JOIN [dbo].[Product] p ON p.ProductId = sp.ProductId"
                 ;
 
-                var shops = connection.Query<Shop, Product, Shop>(sql, (shop, product) => {
-                    shop.Products.Add(product);
+                var shops = connection.Query<Shop, Product, Shop>(sql, (shop, product) => 
+                {
+                    shop.Products = new List<Product> { product };
                     return shop;
                 }, splitOn: "ProductId").ToList();
+                    
+                var result = shops.GroupBy(p => p.ShopId).Select(g =>
+                {
+                    var groupedShop = g.First();
+                    groupedShop.Products = g.Select(p => p.Products.Single()).ToList();
+                    return groupedShop;
+                }).ToList();
 
-                return shops;
+                return result;
             }
         }
 

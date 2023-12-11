@@ -10,6 +10,6 @@ namespace WinFormsApp4.Models
     {
         public int ShopId { get; set; }
         public string Name { get; set; }
-        public List<Product> Products => new List<Product>();
+        public List<Product> Products { get; set; }
     }
 }

@@ -11,5 +11,7 @@ namespace WinFormsApp4.Models
         public int ProductId { get; set; }
 
         public string Name { get; set; }
+
+        public List<Shop> Shops { get; set; }
     }
 }
