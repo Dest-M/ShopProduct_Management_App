@@ -24,7 +24,7 @@ namespace WinFormsApp4
             shops = _shopRepository.GetShops();
             ShopsListBox.DataSource = shops;
             ShopsListBox.DisplayMember = "Name";
-            ShopsListBox.ValueMember = "Id";
+            ShopsListBox.ValueMember = "ShopId";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace WinFormsApp4
             {
                 ProductsListBox.DataSource = shop.Products;
                 ProductsListBox.DisplayMember = "Name";
-                ProductsListBox.ValueMember = "Id";
+                ProductsListBox.ValueMember = "ProductId";
             }
 
         }
