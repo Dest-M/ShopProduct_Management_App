@@ -29,12 +29,12 @@ namespace WinFormsApp4.Repositories
                             INNER JOIN [dbo].[Product] p ON p.ProductId = sp.ProductId"
                 ;
 
-                var shops = connection.Query<Shop, Product, Shop>(sql, (shop, product) => 
+                var shops = connection.Query<Shop, Product, Shop>(sql, (shop, product) =>
                 {
                     shop.Products = new List<Product> { product };
                     return shop;
                 }, splitOn: "ProductId").ToList();
-                    
+
                 var result = shops.GroupBy(p => p.ShopId).Select(g =>
                 {
                     var groupedShop = g.First();
@@ -50,14 +50,25 @@ namespace WinFormsApp4.Repositories
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = "INSERT INTO [dbo].[User] (Login, Password) VALUES(@Login, @Password)";
+                var sqlQuery = "INSERT INTO [dbo].[Shop] (Name) VALUES(@Name)";
                 db.Execute(sqlQuery, shop);
 
-                // если мы хотим получить id добавленного пользователя
-                //var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age); SELECT CAST(SCOPE_IDENTITY() as int)";
-                //int? userId = db.Query<int>(sqlQuery, user).FirstOrDefault();
-                //user.Id = userId.Value;
             }
         }
+
+        public void AddProduct(Product product, Shop shop)
+        {
+            List <Product> products = shop.Products;
+            products.Add(product);
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"INSERT INTO [dbo].[Shop] (Products) VALUES(@products)";
+                db.Execute(sqlQuery, param: products);
+            }
+        }
+
     }
 }
+
+    
+

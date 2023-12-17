@@ -10,5 +10,8 @@ namespace WinFormsApp4.Repositories
     public interface IShopRepository
     {
         List<Shop> GetShops();
+        void Create(Shop shop);
+
+        void AddProduct(Product product, Shop shop);
     }
 }

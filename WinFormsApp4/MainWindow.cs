@@ -16,6 +16,8 @@ namespace WinFormsApp4
     {
         private readonly IShopRepository _shopRepository;
         private List<Shop> shops;
+        private AddProduct _addproduct;
+        private AddShop _addshop;
 
         public MainWindow(IShopRepository shopRepository)
         {
@@ -25,6 +27,8 @@ namespace WinFormsApp4
             ShopsListBox.DataSource = shops;
             ShopsListBox.DisplayMember = "Name";
             ShopsListBox.ValueMember = "ShopId";
+            _addshop = new AddShop(_shopRepository, this);
+            _addproduct = new AddProduct(_shopRepository, this);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -43,10 +47,30 @@ namespace WinFormsApp4
             }
 
         }
+        public void updateShopList()
+        {
+            shops = _shopRepository.GetShops(); 
+            ShopsListBox.DataSource = shops;
+            ShopsListBox.DisplayMember = "Name";
+            ShopsListBox.ValueMember = "ShopId";
 
+            _addshop = new AddShop(_shopRepository, this);
+            _addproduct = new AddProduct(_shopRepository, this);
+        }
         private void Products_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void AddProductBtn_Click(object sender, EventArgs e)
+        {
+            _addproduct.Show();
+
+        }
+
+        private void AddShopBtn_Click(object sender, EventArgs e)
+        {
+            _addshop.Show();
         }
     }
 }
