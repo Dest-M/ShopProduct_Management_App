@@ -78,6 +78,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(192, 255, 192);
             ClientSize = new Size(453, 181);
             Controls.Add(AddShopCancelBtn);
             Controls.Add(AddShopConfirmBtn);

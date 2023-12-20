@@ -12,12 +12,16 @@ using WinFormsApp4.Repositories;
 
 namespace WinFormsApp4
 {
+    
     public partial class MainWindow : Form
     {
         private readonly IShopRepository _shopRepository;
         private List<Shop> shops;
         private AddProduct _addproduct;
         private AddShop _addshop;
+        private DeleteShop _delshop;
+        private DeleteProduct _delproduct;
+        
 
         public MainWindow(IShopRepository shopRepository)
         {
@@ -27,9 +31,15 @@ namespace WinFormsApp4
             ShopsListBox.DataSource = shops;
             ShopsListBox.DisplayMember = "Name";
             ShopsListBox.ValueMember = "ShopId";
+            _delshop = new DeleteShop(_shopRepository, this);
+            _delproduct = new DeleteProduct(_shopRepository, this);
             _addshop = new AddShop(_shopRepository, this);
             _addproduct = new AddProduct(_shopRepository, this);
+            
+
         }
+
+       
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -49,7 +59,7 @@ namespace WinFormsApp4
         }
         public void updateShopList()
         {
-            shops = _shopRepository.GetShops(); 
+            shops = _shopRepository.GetShops();
             ShopsListBox.DataSource = shops;
             ShopsListBox.DisplayMember = "Name";
             ShopsListBox.ValueMember = "ShopId";
@@ -71,6 +81,31 @@ namespace WinFormsApp4
         private void AddShopBtn_Click(object sender, EventArgs e)
         {
             _addshop.Show();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteProductBtn_Click(object sender, EventArgs e)
+        {
+            _delproduct.Show();
+        }
+
+        private void DeleteShopBtn_Click(object sender, EventArgs e)
+        {
+            _delshop.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is InputWindow);
+            if (formToShow != null)
+            {
+                formToShow.Show();
+            };
+            this.Close();
         }
     }
 }

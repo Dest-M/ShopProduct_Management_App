@@ -19,7 +19,10 @@ namespace WinFormsApp4.Repositories
             _connectionString = conn;
         }
 
+        public void InitialiseShopProcedures()
+        {
 
+        }
         public List<Shop> GetShops()
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -62,8 +65,35 @@ namespace WinFormsApp4.Repositories
             products.Add(product);
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                var sqlQuery = @"INSERT INTO [dbo].[Shop] (Products) VALUES(@products)";
-                db.Execute(sqlQuery, param: products);
+
+               
+               var sqlQuery = @$"INSERT INTO [dbo].[Product] (Name) VALUES (product.Name);
+
+                                INSERT INTO [dbo].[ShopProduct] (ShopId, ProductId) VALUES @shop.ShopId, {product.ProductId}";
+
+                db.Execute(sqlQuery, param: shop);
+            }
+        }
+
+        public void DeleteProduct(Product product, Shop shop)
+        {
+            
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"DELETE FROM [dbo].[ShopProduct] WHERE [dbo].[ShopProduct].ProductId = product.ProductId";
+                db.Execute(sqlQuery, param: product);
+            }
+
+        }
+
+        public void DeleteShop(Shop shop)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                var sqlQuery = @"DELETE FROM [dbo].[ShopProduct] WHERE [dbo].[ShopProduct].ShopId = @shop.ShopId;
+                                 DELETE FROM [dbo].[Shop] WHERE [dbo].[Shop].ShopId = @shop.ShopId";
+                db.Execute(sqlQuery, param: shop);
             }
         }
 

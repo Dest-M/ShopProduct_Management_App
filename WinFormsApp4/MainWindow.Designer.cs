@@ -32,6 +32,9 @@
             ProductsListBox = new ListBox();
             AddProductBtn = new Button();
             AddShopBtn = new Button();
+            DeleteShopBtn = new Button();
+            DeleteProductBtn = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // ShopsListBox
@@ -78,17 +81,59 @@
             AddShopBtn.UseVisualStyleBackColor = false;
             AddShopBtn.Click += AddShopBtn_Click;
             // 
+            // DeleteShopBtn
+            // 
+            DeleteShopBtn.BackColor = Color.Firebrick;
+            DeleteShopBtn.ForeColor = Color.LightSalmon;
+            DeleteShopBtn.Location = new Point(26, 425);
+            DeleteShopBtn.Name = "DeleteShopBtn";
+            DeleteShopBtn.Size = new Size(166, 37);
+            DeleteShopBtn.TabIndex = 26;
+            DeleteShopBtn.Text = "Delete Shop";
+            DeleteShopBtn.UseVisualStyleBackColor = false;
+            DeleteShopBtn.Click += DeleteShopBtn_Click;
+            // 
+            // DeleteProductBtn
+            // 
+            DeleteProductBtn.BackColor = Color.Firebrick;
+            DeleteProductBtn.ForeColor = Color.LightSalmon;
+            DeleteProductBtn.Location = new Point(292, 425);
+            DeleteProductBtn.Name = "DeleteProductBtn";
+            DeleteProductBtn.Size = new Size(166, 37);
+            DeleteProductBtn.TabIndex = 27;
+            DeleteProductBtn.Text = "Delete Product";
+            DeleteProductBtn.UseVisualStyleBackColor = false;
+            DeleteProductBtn.Click += DeleteProductBtn_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.BackgroundImageLayout = ImageLayout.None;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ImageAlign = ContentAlignment.TopLeft;
+            button1.Location = new Point(575, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(54, 52);
+            button1.TabIndex = 28;
+            button1.Text = "Sign Out";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(493, 474);
+            ClientSize = new Size(641, 474);
+            Controls.Add(button1);
+            Controls.Add(DeleteProductBtn);
+            Controls.Add(DeleteShopBtn);
             Controls.Add(AddShopBtn);
             Controls.Add(AddProductBtn);
             Controls.Add(ProductsListBox);
             Controls.Add(ShopsListBox);
             Name = "MainWindow";
             Text = "MainWindow";
+            Load += MainWindow_Load;
             ResumeLayout(false);
         }
 
@@ -98,5 +143,8 @@
         private ListBox ProductsListBox;
         private Button AddProductBtn;
         private Button AddShopBtn;
+        private Button DeleteShopBtn;
+        private Button DeleteProductBtn;
+        private Button button1;
     }
 }

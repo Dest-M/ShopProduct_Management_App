@@ -15,11 +15,14 @@ namespace WinFormsApp4
         private readonly AuthorizeForm _authorizeForm;
         private readonly RegistrationForm _registrationForm;
 
+        
+        
         public InputWindow(AuthorizeForm authorizeForm, RegistrationForm registrationForm)
         {
             InitializeComponent();
             _authorizeForm = authorizeForm;
             _registrationForm = registrationForm;
+            
         }
 
         private void AuthorizeBtn_Click(object sender, EventArgs e)
@@ -34,4 +37,5 @@ namespace WinFormsApp4
             this.Hide();
         }
     }
+    
 }
